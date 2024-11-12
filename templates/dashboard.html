@@ -1,0 +1,145 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            width: 600px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555555;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333333;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li p {
+            font-size: 14px;
+            color: #333333;
+        }
+
+        li a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #4CAF50;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Dashboard</h2>
+        <p>Welcome, {{ user.name }}!</p>
+        <a href="{{ url_for('logout') }}">Logout</a>
+
+        <h3>New Post</h3>
+        <form method="POST">
+            <textarea name="content" placeholder="What's on your mind?" required></textarea>
+            <button type="submit">Post</button>
+        </form>
+
+        <h3>All Posts</h3>
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <p>{{ post.content }} (Likes: {{ post.likes }})</p>
+                    <a href="{{ url_for('like_post', post_id=post.id) }}">Like</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
